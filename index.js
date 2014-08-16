@@ -7,7 +7,7 @@ module.exports = function (cb) {
     utils.asyncLoop({
         iterations: providers.length,
         exec: function (i, stop, next) {
-            providers[i](function (err, ip) {
+            providers[i].getIP(function (err, ip) {
                 if (err) {
                     errors.push(err);
                     next();
