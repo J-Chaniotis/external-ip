@@ -9,6 +9,8 @@ module.exports = function (cb) {
         exec: function (i, stop, next) {
             providers[i].getIP(function (err, ip) {
                 if (err) {
+                    err = providers[i].url + ' : ' + err;
+                    console.log(err);
                     errors.push(err);
                     next();
                 } else {
@@ -17,11 +19,7 @@ module.exports = function (cb) {
             });
         },
         done: function (ip) {
-            if (! ip) {
-                cb(errors, null);
-            } else {
-                cb(null, ip);
-            }
+            cb.apply(null, ip ? [null, ip] : [errors, null]);
         }
     });
 };
