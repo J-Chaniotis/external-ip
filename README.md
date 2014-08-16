@@ -2,5 +2,9 @@ external-ip
 ===========
 
 Get your external IP, with fallbacks
+npm install external-ip
 
-This is a work in progress.
+Todo:
+Complete tests
+Document
+Clean up some mess

@@ -1,15 +1,15 @@
 'use strict';
-var providers = require('./lib/providers');
+var services = require('./lib/services').services;
 var utils = require('./lib/utils');
 
 module.exports = function (cb) {
     var errors = [];
     utils.asyncLoop({
-        iterations: providers.length,
+        iterations: services.length,
         exec: function (i, stop, next) {
-            providers[i].getIP(function (err, ip) {
+            services[i].getIP(function (err, ip) {
                 if (err) {
-                    err = providers[i].url + ' : ' + err;
+                    err = services[i].url + ' : ' + err;
                     console.log(err);
                     errors.push(err);
                     next();
