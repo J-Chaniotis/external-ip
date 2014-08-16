@@ -1,0 +1,27 @@
+{
+  "name": "external-ip",
+  "version": "0.0.1",
+  "description": "Get your external IP, with fallbacks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://J-Chaniotis@github.com/J-Chaniotis/external-ip.git"
+  },
+  "keywords": [
+    "Node.js",
+    "external",
+    "ip"
+  ],
+  "author": "J.Chaniotis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/J-Chaniotis/external-ip/issues"
+  },
+  "homepage": "https://github.com/J-Chaniotis/external-ip",
+  "dependencies": {
+    "request": "^2.40.0"
+  }
+}
