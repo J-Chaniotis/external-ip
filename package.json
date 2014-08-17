@@ -1,6 +1,6 @@
 {
   "name": "external-ip",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Get your external IP, with fallbacks",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,9 @@
   "keywords": [
     "Node.js",
     "external",
-    "ip"
+    "ip",
+    "network",
+    "address"
   ],
   "author": "J.Chaniotis",
   "license": "ISC",
