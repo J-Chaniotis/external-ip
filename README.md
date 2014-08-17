@@ -1,6 +1,6 @@
 #external-ip
 
-![](http://imgs.xkcd.com/comics/nanobots.png)
+![XKCD 865](http://imgs.xkcd.com/comics/nanobots.png)
 
 
 
