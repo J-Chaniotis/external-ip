@@ -19,16 +19,41 @@ Change your working directory to the project's root, `npm install` to get the de
 
 ##Usage
 
+basic
 
 ```javascript
-var getIP = require('external-ip')();
+'use strict';
+
+var getIP = require('../index')();
 
 getIP(function (err, ip) {
     if (err) {
-        //Every service in the list failed to return an ip
-    } else {
-        //Do stuff        
+        // every service in the list has failed
+        throw err;
     }
+    console.log(ip);
+});
+
+```
+
+with configuration
+
+```javascript
+'use strict';
+
+var extIP = require('../index');
+
+var getIP = extIP({
+    replace: true, // true: replace the default services list, false: extend it, default: false
+    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+    timeout: 600 // set timeout per request, default: 500ms
+});
+
+getIP(function (err, ip) {
+    if (err) {
+        throw err;
+    }
+    console.log(ip);
 });
 
 ```
@@ -37,8 +62,5 @@ getIP(function (err, ip) {
 No idea, really. Just another lib that gives you your external ip address
 
 ##Todo:
-* Complete tests
-* Document
-* Clean up some mess
-* Use custom urls
-* ...??
+* clean up some mess
+* sequential / parallel (spam) requests ? 
