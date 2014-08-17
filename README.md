@@ -36,5 +36,5 @@ No idea, really. Just another lib that gives you your external ip address
 * Complete tests
 * Document
 * Clean up some mess
-* Use custom uls
+* Use custom urls
 * ...??
