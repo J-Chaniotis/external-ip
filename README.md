@@ -1,10 +1,40 @@
-external-ip
-===========
+#external-ip
+
+![](http://imgs.xkcd.com/comics/nanobots.png)
+
+
 
 Get your external IP, with fallbacks
-npm install external-ip
 
-Todo:
-Complete tests
-Document
-Clean up some mess
+
+
+##Installation
+
+`npm install external-ip`
+
+
+##Usage
+
+
+```javascript
+var getIP = require('external-ip');
+
+getIP(function (err, ip) {
+    if (err) {
+        //Every service in the list failed to return an ip
+    } else {
+        //Do stuff        
+    }
+});
+
+```
+
+##Why?
+No idea, really. Just another lib that gives you your external ip address
+
+##Todo:
+* Complete tests
+* Document
+* Clean up some mess
+* Use custom uls
+* ...??
