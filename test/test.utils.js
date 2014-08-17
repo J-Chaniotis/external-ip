@@ -23,7 +23,7 @@ describe('utils.js test', function () {
     });
 
 
-    it('should loop i times and pass the arguments to done callback', function(cb) {
+    it('should loop i times and pass the arguments to done callback', function (cb) {
         var i = 10;
         utils.asyncLoop({
             iterations: i,
@@ -31,7 +31,7 @@ describe('utils.js test', function () {
                 next(i, 'man');
             },
             done: function (result, bat) {
-                result.should.equal(i-1);
+                result.should.equal(i - 1);
                 bat.should.equal('man');
                 cb();
             }
@@ -40,13 +40,13 @@ describe('utils.js test', function () {
     });
 
 
-    it('should loop i times and stop at n and pass the arguments to done callback', function(cb) {
+    it('should loop i times and stop at n and pass the arguments to done callback', function (cb) {
         var i = 10;
         var n = 4;
         utils.asyncLoop({
             iterations: i,
             exec: function (i, stop, next) {
-                if(i === n) {
+                if (i === n) {
                     stop(i, 'tab');
                 }
                 next(i, 'man');
@@ -57,6 +57,52 @@ describe('utils.js test', function () {
                 cb();
             }
         });
+
+    });
+
+    it('should validate the config object', function () {
+        var validCfg1 = {
+            replace: false,
+            services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
+            timeout: 500
+        };
+        utils.validateConfig(validCfg1).valid.should.be.true;
+
+        var validCfg2 = {
+            services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
+            timeout: 500
+        };
+        utils.validateConfig(validCfg2).valid.should.be.true;
+
+        var validCfg3 = {
+            timeout: 500
+        };
+        utils.validateConfig(validCfg3).valid.should.be.true;
+
+        var validCfg4 = {};
+        utils.validateConfig(validCfg4).valid.should.be.true;
+
+
+        var invalidCfg1 = {
+            replace: 'batman',
+            services: [],
+            timeout: 'robin'
+        };
+
+        utils.validateConfig(invalidCfg1).errors.length.should.equal(3);
+
+        var invalidCfg2 = {
+            replace: true
+        };
+
+        utils.validateConfig(invalidCfg2).errors.length.should.equal(1);
+
+        var invalidCfg3 = {
+            services: ['I am THE Batman']
+        };
+
+        utils.validateConfig(invalidCfg3).errors.length.should.equal(1);
+
 
     });
 

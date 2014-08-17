@@ -21,7 +21,7 @@ Change your working directory to the project's root, `npm install` to get the de
 
 
 ```javascript
-var getIP = require('external-ip').getIP;
+var getIP = require('external-ip')();
 
 getIP(function (err, ip) {
     if (err) {

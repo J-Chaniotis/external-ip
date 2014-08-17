@@ -3,7 +3,7 @@
 /*globals it, describe*/
 
 // Integration test
-var getIP = require('../index').getIP;
+var getIP = require('../index')();
 var utils = require('../lib/utils');
 var should = require('should');
 

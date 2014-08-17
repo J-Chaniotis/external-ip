@@ -2,7 +2,13 @@
 
 /*globals describe, it*/
 
-var services = require('../lib/services');
+var extIP = require('../lib/extIP').setup({
+    replace: false,
+    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+    timeout: 500
+});
+
+
 var should = require('should');
 
 var successRequest = {
@@ -28,10 +34,10 @@ var invalidRequest = {
 
 
 
-describe('services.js test', function () {
+describe('extIP.js test', function () {
 
     it('Should have correct request config and return without errors', function () {
-        var req = services.requestFactory(successRequest, 'batman');
+        var req = extIP.requestFactory(successRequest, 'batman');
         req(function (err, ip) {
             (err === null).should.be.true;
             ip.should.equal('94.65.128.173');
@@ -39,7 +45,7 @@ describe('services.js test', function () {
     });
 
     it('Should return with an error', function () {
-        var req = services.requestFactory(failedRequest, 'batman');
+        var req = extIP.requestFactory(failedRequest, 'batman');
         req(function (err, ip) {
             err.should.equal('booom');
             (ip === null).should.be.true;
@@ -47,8 +53,8 @@ describe('services.js test', function () {
     });
 
     it('Should validate a correct ip', function () {
-        var req = services.requestFactory(successRequest, 'batman');
-        req = services.addValidation(req);
+        var req = extIP.requestFactory(successRequest, 'batman');
+        req = extIP.addValidation(req);
         req(function (err, ip) {
             (err === null).should.be.true;
             ip.should.equal('94.65.128.173');
@@ -56,8 +62,8 @@ describe('services.js test', function () {
     });
 
     it('Should return an error with an invalid ip', function () {
-        var req = services.requestFactory(invalidRequest, 'batman');
-        req = services.addValidation(req);
+        var req = extIP.requestFactory(invalidRequest, 'batman');
+        req = extIP.addValidation(req);
         req(function (err, ip) {
             err.should.be.an.Error;
             (ip === null).should.be.true;
