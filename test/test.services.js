@@ -55,7 +55,7 @@ describe('services.js test', function () {
         });
     });
 
-    it('Should return with an error with an invalid ip', function () {
+    it('Should return an error with an invalid ip', function () {
         var req = services.requestFactory(invalidRequest, 'batman');
         req = services.addValidation(req);
         req(function (err, ip) {
