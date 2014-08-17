@@ -19,7 +19,7 @@ Get your external IP, with fallbacks
 
 
 ```javascript
-var getIP = require('external-ip');
+var getIP = require('external-ip').getIP;
 
 getIP(function (err, ip) {
     if (err) {

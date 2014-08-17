@@ -2,7 +2,7 @@
 var services = require('./lib/services').services;
 var utils = require('./lib/utils');
 
-module.exports = function (cb) {
+module.exports.getIP = function (cb) {
     var errors = [];
     utils.asyncLoop({
         iterations: services.length,
@@ -10,7 +10,6 @@ module.exports = function (cb) {
             services[i].getIP(function (err, ip) {
                 if (err) {
                     err = services[i].url + ' : ' + err;
-                    console.log(err);
                     errors.push(err);
                     next();
                 } else {

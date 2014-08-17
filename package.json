@@ -1,6 +1,6 @@
 {
   "name": "external-ip",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Get your external IP, with fallbacks",
   "main": "index.js",
   "scripts": {
