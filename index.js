@@ -3,12 +3,16 @@ var extIP = require('./lib/extIP');
 var utils = require('./lib/utils');
 
 module.exports = function (extConf) {
-    /*
-    TODO: validate-merge-validate config/ examples / docs
-    */
+    extConf = extConf || {};
+
+    var extValid = utils.validateConfig(extConf);
+
+    if (extValid.errors.length) {
+        throw new Error(extConf.errors);
+    }
 
     // Check: https://github.com/mjhasbach/MOIRA
-    var config = {
+    var defConf = {
         replace: false,
         services: [
             'http://ifconfig.co/x-real-ip',
@@ -24,6 +28,8 @@ module.exports = function (extConf) {
         ],
         timeout: 500
     };
+
+    var config = utils.mergeConfig(extConf, defConf);
 
     var services = extIP.setup(config).services;
 

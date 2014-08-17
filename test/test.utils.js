@@ -103,6 +103,40 @@ describe('utils.js test', function () {
 
         utils.validateConfig(invalidCfg3).errors.length.should.equal(1);
 
+    });
+
+    it('should merge a valid configuration with default configuration', function () {
+        var defConf = {
+            replace: false,
+            services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
+            timeout: 500
+        };
+
+        var ext1 = {};
+        
+        var ext2 = {
+            services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
+            timeout: 1000
+        };
+
+        var ext3 = {
+            replace: true,
+            services: ['http://ifconfig.co/x-real-ip']
+        };
+
+        var merged = utils.mergeConfig(ext1, defConf);
+        merged.should.have.property('timeout', 500);
+        merged.should.have.property('services').with.lengthOf(2);
+
+        merged = utils.mergeConfig(ext2, defConf);
+        merged.should.have.property('timeout', 1000);
+        merged.should.have.property('services').with.lengthOf(4);
+
+        merged = utils.mergeConfig(ext3, defConf);
+        merged.should.have.property('timeout', 500);
+        merged.should.have.property('services').with.lengthOf(1);
+
+
 
     });
 
