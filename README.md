@@ -14,6 +14,8 @@ Get your external IP, with fallbacks
 
 `npm install external-ip`
 
+##Test
+Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
 
 ##Usage
 
