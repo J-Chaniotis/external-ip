@@ -59,8 +59,11 @@ getIP(function (err, ip) {
 ```
 
 ##Why?
-No idea, really. Just another lib that gives you your external ip address
+No idea, really. Just another lib that gives your external ip address
 
 ##Todo:
 * clean up some mess
-* sequential / parallel (spam) requests ? 
+* Document!
+* Add tests for parallel fething + config validation
+* Add links for similar libs (MOIRA)
+* ...?
