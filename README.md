@@ -24,7 +24,7 @@ basic
 ```javascript
 'use strict';
 
-var getIP = require('../index')();
+var getIP = require('external-ip')();
 
 getIP(function (err, ip) {
     if (err) {
@@ -41,7 +41,7 @@ with configuration
 ```javascript
 'use strict';
 
-var extIP = require('../index');
+var extIP = require('external-ip');
 
 var getIP = extIP({
     replace: true, // true: replace the default services list, false: extend it, default: false
