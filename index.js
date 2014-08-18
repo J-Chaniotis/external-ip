@@ -5,10 +5,10 @@ var utils = require('./lib/utils');
 module.exports = function (extConf) {
     extConf = extConf || {};
 
-    var extValid = utils.validateConfig(extConf);
+    var isValid = utils.validateConfig(extConf);
 
-    if (extValid.errors.length) {
-        throw new Error(extConf.errors);
+    if (isValid.errors.length) {
+        throw new Error(isValid.errors);
     }
 
     // Check: https://github.com/mjhasbach/MOIRA
