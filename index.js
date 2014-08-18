@@ -13,7 +13,7 @@ module.exports = function (extConf) {
 
     // Check: https://github.com/mjhasbach/MOIRA
     var defConf = {
-        getIP: 'sequencial', // parallel
+        getIP: 'sequential', // parallel
         replace: false,
         services: [
             'http://ifconfig.co/x-real-ip',
@@ -36,7 +36,7 @@ module.exports = function (extConf) {
 
 
     var getIP = {
-        sequencial: function (cb) {
+        sequential: function (cb) {
             var errors = [];
             utils.asyncLoop({
                 iterations: services.length,
@@ -60,6 +60,7 @@ module.exports = function (extConf) {
         parallel: function (cb) {
             var done = false;
             var errors = [];
+            var requests;
 
             var onResponse = function (err, ip) {
 
@@ -71,11 +72,17 @@ module.exports = function (extConf) {
                 }
                 if (ip || errors.length === services.length) {
                     done = true;
+                    // Make sure requests has been initialized
+                    process.nextTick(function () {
+                        requests.forEach(function (request) {
+                            request.abort();
+                        });
+                    });
                     cb.apply(null, ip ? [null, ip] : [errors, null]);
                 }
             };
-            // Abort at somepoint....
-            var requests = services.map(function (service) {
+
+            requests = services.map(function (service) {
                 return service.getIP(onResponse);
             });
 

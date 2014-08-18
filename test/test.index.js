@@ -24,7 +24,8 @@ describe('index.js test', function () {
         var getIP = extIP({
             replace: true, // true: replace the default services list, false: extend it, default: false
             services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
-            timeout: 600 // set timeout per request, default: 500ms
+            timeout: 600, // set timeout per request, default: 500ms,
+            getIP: 'parallel'
         });
 
         getIP(function (err, ip) {

@@ -64,13 +64,15 @@ describe('utils.js test', function () {
         var validCfg1 = {
             replace: false,
             services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
-            timeout: 500
+            timeout: 500,
+            gerIP: 'sequential'
         };
         utils.validateConfig(validCfg1).valid.should.be.true;
 
         var validCfg2 = {
             services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
-            timeout: 500
+            timeout: 500,
+            getIP: 'parallel'
         };
         utils.validateConfig(validCfg2).valid.should.be.true;
 
@@ -86,10 +88,11 @@ describe('utils.js test', function () {
         var invalidCfg1 = {
             replace: 'batman',
             services: [],
-            timeout: 'robin'
+            timeout: 'robin',
+            getIP: 'freeze'
         };
 
-        utils.validateConfig(invalidCfg1).errors.length.should.equal(3);
+        utils.validateConfig(invalidCfg1).errors.length.should.equal(4);
 
         var invalidCfg2 = {
             replace: true
@@ -109,14 +112,16 @@ describe('utils.js test', function () {
         var defConf = {
             replace: false,
             services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
-            timeout: 500
+            timeout: 500,
+            getIP: 'sequential'
         };
 
         var ext1 = {};
         
         var ext2 = {
             services: ['http://ifconfig.co/x-real-ip','http://ifconfig.me/ip'],
-            timeout: 1000
+            timeout: 1000,
+            getIP: 'parallel'
         };
 
         var ext3 = {
@@ -127,10 +132,12 @@ describe('utils.js test', function () {
         var merged = utils.mergeConfig(ext1, defConf);
         merged.should.have.property('timeout', 500);
         merged.should.have.property('services').with.lengthOf(2);
+        merged.should.have.property('getIP', 'sequential');
 
         merged = utils.mergeConfig(ext2, defConf);
         merged.should.have.property('timeout', 1000);
         merged.should.have.property('services').with.lengthOf(4);
+        merged.should.have.property('getIP', 'parallel');
 
         merged = utils.mergeConfig(ext3, defConf);
         merged.should.have.property('timeout', 500);
