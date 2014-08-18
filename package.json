@@ -25,7 +25,8 @@
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
     "request": "^2.40.0",
-    "revalidator": "^0.2.0"
+    "revalidator": "^0.2.0",
+    "node-getopt": "^0.2.3"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
