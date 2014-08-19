@@ -35,6 +35,7 @@ var generateConfig = function (cliConf) {
         config.services = cliConf.services;
     return config;
 };
+
 //Function that handles the output
 var ipPrint = function(err,ip){
     if (err)
