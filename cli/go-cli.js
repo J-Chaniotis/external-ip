@@ -2,7 +2,7 @@
 'use strict';
 
 //Dependencies
-var getIP = require('../index')();
+var extIP = require('../index');
 var GetOpt = require('node-getopt');
 
 //CLI parser Object
@@ -26,15 +26,45 @@ var getOpt = new GetOpt([
 //Vars
 var parallelFlag = false;
 var replaceFlag = false;
-var services = null;
-var timeout = null;
+var services = [];
+var timeout = 500;
 
+//Set values from parser
 if(getOpt.options.parallel)
 	parallelFlag = true;
 if(getOpt.options.replace)
 	replaceFlag = true;
-if(getOpt.options.services)
-	services = getOpt.options.services;
-if(getOpt.options.timeout)
+if(getOpt.options.services){
+	services = getOpt.options.services+"";
+	services = services.split(',');
+	services.toString();
+}if(getOpt.options.timeout)
 	timeout = getOpt.options.timeout;
-console.log(parallelFlag+'\t'+replaceFlag+'\t'+services+'\t'+timeout);
+
+
+//console.log(parallelFlag+'\t'+replaceFlag+'\t'+services[0]+'\t'+timeout);
+
+//Construct config
+//These are defaults where available
+var config = {
+    replace: false,
+    services: services,
+    timeout: parseInt(timeout),
+    getIP: 'sequential'
+};
+//Adjust config
+if(parallelFlag==true)
+	config.getIP = 'parallel';
+if(replaceFlag==true)
+	config.replace==true;
+
+console.info(config);
+
+var getIP = extIP(config);
+
+getIP(function (err, ip) {
+    if (err) {
+        throw err;
+    }
+    console.log(ip);
+});
