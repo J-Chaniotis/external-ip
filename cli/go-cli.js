@@ -8,7 +8,7 @@ var GetOpt = require('node-getopt');
 //CLI parser Object
 var getOpt = new GetOpt([
 	['h',	'help'			,	'display this help'],
-	['r',	'replace'	,	'set to replace services with -s insted of adding'],
+	['r',	'replace'		,	'set to replace services with -s insted of adding'],
 	['s',	'services=ARG+'	,	'add service, one per -s (if not set uses default list)'],
 	['t',	'timeout=ARG'	,	'set timeout per request (default 500ms)'],
 	['P',	'parallel'		,	'set to parallel mode (default sequential)']
@@ -26,12 +26,14 @@ var getOpt = new GetOpt([
 //Vars
 var parallelFlag = false;
 var replaceFlag = false;
-var services = [];
+var services = null;
 var timeout = 500;
+
+var config = {};
 
 //Set values from parser
 if(getOpt.options.parallel)
-	parallelFlag = true;
+	parallelFlag = true;	
 if(getOpt.options.replace)
 	replaceFlag = true;
 if(getOpt.options.services){
@@ -41,24 +43,18 @@ if(getOpt.options.services){
 }if(getOpt.options.timeout)
 	timeout = getOpt.options.timeout;
 
+//Fill the config
+if(Object.keys(getOpt.options).length!=0){
+	config.timeout = timeout;
+	config.getIP = 'sequential';
+}
 
-//console.log(parallelFlag+'\t'+replaceFlag+'\t'+services[0]+'\t'+timeout);
-
-//Construct config
-//These are defaults where available
-var config = {
-    replace: false,
-    services: services,
-    timeout: parseInt(timeout),
-    getIP: 'sequential'
-};
 //Adjust config
 if(parallelFlag==true)
 	config.getIP = 'parallel';
-if(replaceFlag==true)
-	config.replace==true;
+if(services != null)
+	config.services = services;
 
-console.info(config);
 
 var getIP = extIP(config);
 

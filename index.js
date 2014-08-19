@@ -8,7 +8,8 @@ module.exports = function (extConf) {
     var isValid = utils.validateConfig(extConf);
 
     if (isValid.errors.length) {
-        throw new Error(isValid.errors);
+        console.error(isValid.errors);
+        process.exit(1);
     }
 
     // Check: https://github.com/mjhasbach/MOIRA
