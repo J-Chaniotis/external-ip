@@ -55,6 +55,7 @@ getIP(function (err, ip) {
 });
 
 ```
+
 ##extIP([config])
 external-ip exposes a constructor function that accepts a configuration object with the following optional properties:
 * **services:** `Array` of urls that return the ip in the document body, required if replace is set to true
@@ -72,10 +73,29 @@ The callback gets 2 arguments:
 ##Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
 
+## Command line tool
+On **Ubuntu systems** use ``` ./external-ip``` to run the tool
+```bash
+Usage: external-ip [OPTION] or [OPTION] <arguement>.
+
+  -h, --help           display this help
+  -r, --replace        set to replace services with -s insted of adding
+  -s, --services=ARG+  add service, one per -s (if not set uses default list)
+  -t, --timeout=ARG    set timeout per request (default 500ms)
+  -P, --parallel       set to parallel mode (default sequential)
+
+```
+Example:
+```bash
+./external-ip -s http://ifconfig.co/x-real-ip -s http://ifconfig.me/ip -P -t 1500 -r
+```
+
 ##Todo
- maybe a CLI
+  -??? 
+  -profit
 
 ##Links
 * [moira](https://www.npmjs.org/package/moira)
 * [externalip](https://www.npmjs.org/package/externalip)
 * [extip](https://www.npmjs.org/package/extip)
+* [node-getopt](https://www.npmjs.org/package/node-getopt)
