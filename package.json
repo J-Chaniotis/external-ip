@@ -4,7 +4,7 @@
   "description": "Get your external IP, with fallbacks",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha"
+    "test": "nodejs node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",

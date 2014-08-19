@@ -16,10 +16,12 @@ var getOpt = new GetOpt([
 .bindHelp()
 .setHelp(
 	"\nThis program prints the external IP of the machine.\n"+
-	"Usage: go-cli [OPTION] or [OPTION] <arguement>.\n\n"+
+	"Usage: external-ip [OPTION] or [OPTION] <arguement>.\n\n"+
 	"If without options, runs with default configuration.\n\n"+
-	"[[OPTIONS]]"+
-	"\n\n Git: https://github.com/J-Chaniotis/external-ip"
+	"[[OPTIONS]]\n\n"+
+    "Version: 0.1.0\n"+
+	"Git: https://github.com/J-Chaniotis/external-ip\n"+
+    "Author: Nikolas Andronopoulos"
 )
 .parseSystem();
 
