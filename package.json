@@ -18,7 +18,7 @@
     "address"
   ],
   "bin": {
-    "coveralls": "./bin/coveralls.js"
+    "coveralls": "./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "J.Chaniotis",
   "license": "ISC",
