@@ -17,6 +17,9 @@
     "network",
     "address"
   ],
+  "bin": {
+    "coveralls": "./bin/coveralls.js"
+  },
   "author": "J.Chaniotis",
   "license": "ISC",
   "bugs": {
