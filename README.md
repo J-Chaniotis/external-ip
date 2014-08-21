@@ -1,6 +1,4 @@
-#external-ip
-
-[![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip)
+#external-ip [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) ![Dependencies](https://david-dm.org/J-chaniotis/external-ip.svg)
 
 ![XKCD 865](http://imgs.xkcd.com/comics/nanobots.png)
 

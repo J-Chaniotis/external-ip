@@ -28,7 +28,9 @@
     "revalidator": "^0.2.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.1",
     "mocha": "^1.21.4",
+    "mocha-lcov-reporter": "0.0.1",
     "should": "^4.0.4"
   }
 }
