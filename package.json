@@ -1,7 +1,7 @@
 {
   "name": "external-ip",
   "version": "0.1.4",
-  "description": "Get your external IP, with fallbacks",
+  "description": "A node.js library to get your external ip from multiple services",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha"
