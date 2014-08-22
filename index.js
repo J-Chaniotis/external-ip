@@ -63,6 +63,15 @@ module.exports = function (extConf) {
             var errors = [];
             var requests;
 
+            var abort = function (requests) {
+                process.nextTick(function () {
+                    requests.forEach(function (request) {
+                        request.abort();
+                    });
+                });
+            };
+
+
             var onResponse = function (err, ip) {
 
                 if (done) {
@@ -71,15 +80,15 @@ module.exports = function (extConf) {
                 if (err) {
                     errors.push(err);
                 }
-                if (ip || errors.length === services.length) {
+                if(ip) {
                     done = true;
-                    // Make sure requests has been initialized
-                    process.nextTick(function () {
-                        requests.forEach(function (request) {
-                            request.abort();
-                        });
-                    });
-                    cb.apply(null, ip ? [null, ip] : [errors, null]);
+                    abort(requests); //async
+                    return cb(null, ip);
+                }
+                if (errors.length === services.length) {
+                    done = true;
+                    abort(requests); //async
+                    return cb(errors, null);
                 }
             };
 
