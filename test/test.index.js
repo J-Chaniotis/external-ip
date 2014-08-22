@@ -5,15 +5,16 @@
 // Integration test
 var extIP = require('../index');
 var utils = require('../lib/utils');
-var should = require('should');
+var expect = require('chai').expect;
+
 
 describe('index.js test', function () {
     it('Should return an IP with default configuration', function (done) {
         this.timeout(3000);
         var getIP = extIP();
         getIP(function (err, ip) {
-            (err === null).should.be.true;
-            utils.isIP(ip).should.be.true;
+            expect(err).to.equal(null);
+            expect(utils.isIP(ip)).to.equal(true);
             done();
         });
     });
@@ -29,8 +30,8 @@ describe('index.js test', function () {
         });
 
         getIP(function (err, ip) {
-            (err === null).should.be.true;
-            utils.isIP(ip).should.be.true;
+            expect(err).to.equal(null);
+            expect(utils.isIP(ip)).to.equal(true);
             done();
         });
     });
