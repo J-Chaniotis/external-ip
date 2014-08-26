@@ -57,7 +57,7 @@ getIP(function (err, ip) {
 external-ip exposes a constructor function that accepts a configuration object with the following optional properties:
 * **services:** `Array` of urls that return the ip in the html body, required if replace is set to true
 * **replace:** `Boolean` if true, replaces the internal array of services with the user defined, if false, extends it, default: `false` 
-* **timeout:** Timeout per request in ms, default `500`
+* **timeout:** Timeout per request in ms, default `1000`
 * **getIP:** `'sequential'` Sends a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Sends requests to all the sites in the list, on the first valid response all the pending requests are canceled. default: `'sequential'`
 
 Returns the configured getIP function.
@@ -77,8 +77,8 @@ $ external-ip -h
   Options:
 
     -h, --help            output usage information
-    -R, --replace         replace services set with -s insted of adding
-    -s, --services <url>  url of service that returns the IP in the HTML body, one per -s, required if using -R 
+    -R, --replace         replace internal services instead of extending them.
+    -s, --services <url>  service url, see examples, required if using -R 
     -t, --timeout <msec>  set timeout per request
     -P, --parallel        set to parallel mode
 
