@@ -2,7 +2,7 @@
 
 /*globals describe, it*/
 var expect = require('chai').expect;
-var extIP = require('../lib/extIP').setup({
+var requests = require('../lib/requests').setup({
     replace: false,
     services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
     timeout: 500
@@ -30,10 +30,10 @@ var request = {
     }
 };
 
-describe('extIP.js test', function () {
+describe('requests.js test', function () {
 
     it('Should have correct request config and return without errors', function () {
-        var req = extIP.requestFactory(request.success, 'batman');
+        var req = requests.requestFactory(request.success, 'batman');
         req(function (err, ip) {
             expect(err).to.equal(null);
             expect(ip).to.equal('94.65.128.173');
@@ -41,7 +41,7 @@ describe('extIP.js test', function () {
     });
 
     it('Should return with an error', function () {
-        var req = extIP.requestFactory(request.fail, 'batman');
+        var req = requests.requestFactory(request.fail, 'batman');
         req(function (err, ip) {
             expect(err).to.equal('booom');
             expect(ip).to.equal(null);
@@ -49,8 +49,8 @@ describe('extIP.js test', function () {
     });
 
     it('Should validate a correct ip', function () {
-        var req = extIP.requestFactory(request.success, 'batman');
-        req = extIP.addValidation(req);
+        var req = requests.requestFactory(request.success, 'batman');
+        req = requests.addValidation(req);
         req(function (err, ip) {
             expect(err).to.equal(null);
             expect(ip).to.equal('94.65.128.173');
@@ -58,8 +58,8 @@ describe('extIP.js test', function () {
     });
 
     it('Should return an error with an invalid ip', function () {
-        var req = extIP.requestFactory(request.invalid, 'batman');
-        req = extIP.addValidation(req);
+        var req = requests.requestFactory(request.invalid, 'batman');
+        req = requests.addValidation(req);
         req(function (err, ip) {
             expect(err).to.be.instanceof(Error);
             expect(ip).to.equal(null);

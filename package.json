@@ -6,6 +6,9 @@
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha"
   },
+  "bin": {
+    "external-ip": "lib/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://J-Chaniotis@github.com/J-Chaniotis/external-ip.git"
@@ -18,12 +21,17 @@
     "address"
   ],
   "author": "J.Chaniotis",
+  "contributors": [{
+    "name": "Nikolas Andronopoulos",
+    "email": "nikolas.andronopoulos@gmail.com"
+  }],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/J-Chaniotis/external-ip/issues"
   },
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
+    "commander": "^2.3.0",
     "request": "^2.40.0",
     "revalidator": "^0.2.0"
   },
