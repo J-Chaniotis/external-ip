@@ -1,4 +1,4 @@
-#external-ip [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) [![Dependency Status](https://david-dm.org/J-Chaniotis/external-ip.svg)](https://david-dm.org/J-Chaniotis/external-ip)
+#external-ip [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) ![Dependencies](https://david-dm.org/J-chaniotis/external-ip.svg)
 
 ![XKCD 865](http://imgs.xkcd.com/comics/nanobots.png)
 
@@ -55,7 +55,7 @@ getIP(function (err, ip) {
 ```
 ##extIP([config])
 external-ip exposes a constructor function that accepts a configuration object with the following optional properties:
-* **services:** `Array` of urls that return the ip in the document body, required if replace is set to true
+* **services:** `Array` of urls that return the ip in the html body, required if replace is set to true
 * **replace:** `Boolean` if true, replaces the internal array of services with the user defined, if false, extends it, default: `false` 
 * **timeout:** Timeout per request in ms, default `500`
 * **getIP:** `'sequential'` Sends a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Sends requests to all the sites in the list, on the first valid response all the pending requests are canceled. default: `'sequential'`
@@ -67,11 +67,29 @@ The callback gets 2 arguments:
 1. error: if every service in the list fails to return a valid ip
 2. ip: your external ip
 
+##CLI
+install as a global package with `npm install -g external-ip`.
+```
+$ external-ip -h
+
+  Usage: external-ip [options]
+
+  Options:
+
+    -h, --help            output usage information
+    -R, --replace         replace services set with -s insted of adding
+    -s, --services <url>  url of service that returns the IP in the HTML body, one per -s, required if using -R 
+    -t, --timeout <msec>  set timeout per request
+    -P, --parallel        set to parallel mode
+
+This program prints the external IP of the machine.
+All arguments are optional.
+Examples:
+$ external-ip
+$ external-ip -P -t 1500 -R -s http://icanhazip.com/ -s http://ifconfig.me/ip
+```
 ##Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
-
-##Todo
- maybe a CLI
 
 ##Links
 * [moira](https://www.npmjs.org/package/moira)
