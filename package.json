@@ -4,7 +4,7 @@
   "description": "A node.js library to get your external ip from multiple services",
   "main": "index.js",
   "scripts": {
-    "test": "nodejs node_modules/mocha/bin/mocha"
+    "test": "node node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,7 @@
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
     "request": "^2.40.0",
-    "revalidator": "^0.2.0",
-    "node-getopt": "^0.2.3"
+    "revalidator": "^0.2.0"
   },
   "devDependencies": {
     "chai": "^1.9.1",
