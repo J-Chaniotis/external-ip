@@ -18,6 +18,7 @@
     "external",
     "ip",
     "network",
+    "public",
     "address"
   ],
   "author": "J.Chaniotis",
