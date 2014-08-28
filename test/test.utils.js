@@ -24,44 +24,6 @@ describe('utils.js test', function () {
     });
 
 
-    it('should loop i times and pass the arguments to done callback', function (cb) {
-        var i = 10;
-        utils.asyncLoop({
-            iterations: i,
-            exec: function (i, stop, next) {
-                next(i, 'someArg');
-            },
-            done: function (result, anotherArg) {
-                expect(result).to.equal(i - 1);
-                expect(anotherArg).to.equal('someArg');
-                cb();
-            }
-        });
-
-    });
-
-
-    it('should loop i times and stop at n and pass the arguments to done callback', function (cb) {
-        var i = 10;
-        var n = 4;
-        utils.asyncLoop({
-            iterations: i,
-            exec: function (i, stop, next) {
-                if (i === n) {
-                    stop(i, 'stopValue');
-                }
-                next(i, 'someArg');
-            },
-            done: function (result, anotherArg) {
-                expect(result).to.equal(n);
-                expect(anotherArg).to.equal('stopValue');
-                cb();
-            }
-        });
-
-    });
-
-
     it('should allow valid config', function () {
         var config = {
             a: {
