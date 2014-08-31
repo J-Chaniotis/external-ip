@@ -37,7 +37,8 @@
     "commander": "^2.3.0",
     "evented-async-loop": "^0.1.1",
     "request": "^2.40.0",
-    "revalidator": "^0.2.0"
+    "revalidator": "^0.2.0",
+    "socks5-http-client": "^0.1.6"
   },
   "devDependencies": {
     "chai": "^1.9.1",
