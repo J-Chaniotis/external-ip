@@ -40,7 +40,7 @@ var extIP = require('external-ip');
 
 var getIP = extIP({
     replace: true,
-    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
     timeout: 600,
     getIP: 'parallel'
 });
@@ -86,7 +86,7 @@ This program prints the external IP of the machine.
 All arguments are optional.
 Examples:
 $ external-ip
-$ external-ip -P -t 1500 -R -s http://icanhazip.com/ -s http://ifconfig.me/ip
+$ external-ip -P -t 1500 -R -s http://icanhazip.com/ -s http://ifconfig.io/ip
 ```
 ##Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`

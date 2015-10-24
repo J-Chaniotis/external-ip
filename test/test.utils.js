@@ -28,12 +28,12 @@ describe('utils.js test', function () {
         var config = {
             a: {
                 replace: false,
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 500,
                 gerIP: 'sequential'
             },
             b: {
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 500,
                 getIP: 'parallel'
             },
@@ -78,13 +78,13 @@ describe('utils.js test', function () {
         var config = {
             default: {
                 replace: false,
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 500,
                 getIP: 'sequential'
             },
             a: {},
             b: {
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 1000,
                 getIP: 'parallel'
             },
