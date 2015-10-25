@@ -4,7 +4,7 @@
 var expect = require('chai').expect;
 var requests = require('../lib/requests').setup({
     replace: false,
-    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
     timeout: 500
 });
 
