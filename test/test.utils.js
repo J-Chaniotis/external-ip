@@ -8,22 +8,6 @@ var expect = require('chai').expect;
 
 describe('utils.js test', function () {
 
-    it('should be able to validate IPv4, IPv6 and hostnames', function () {
-
-        expect(utils.isIP('192.168.1.1')).to.equal(true);
-        expect(utils.isIP('94.65.128.173')).to.equal(true);
-        expect(utils.isIP('FE80:0000:0000:0000:0202:B3FF:FE1E:8329')).to.equal(true);
-        expect(utils.isIP('FE80::0202:B3FF:FE1E:8329')).to.equal(true);
-        expect(utils.isIP('batman.local')).to.equal(true);
-
-
-        expect(utils.isIP(111111)).to.equal(false);
-        expect(utils.isIP('192..1.1')).to.equal(false);
-        expect(utils.isIP('94.65.128.1A3')).to.equal(false);
-        expect(utils.isIP('FE80:0000:0000:0000:0202:B3FF:FE1E:')).to.equal(false);
-    });
-
-
     it('should allow valid config', function () {
         var config = {
             a: {

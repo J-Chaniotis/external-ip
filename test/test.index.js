@@ -4,8 +4,8 @@
 
 // Integration test
 var extIP = require('../index');
-var utils = require('../lib/utils');
 var expect = require('chai').expect;
+var net = require('net');
 
 var timeout = 3000;
 
@@ -16,7 +16,7 @@ describe('index.js test', function () {
         var getIP = extIP();
         getIP(function (err, ip) {
             expect(err).to.equal(null);
-            expect(utils.isIP(ip)).to.equal(true);
+            expect(net.isIP(ip) != 0).to.equal(true);
             done();
         });
     });
@@ -33,7 +33,7 @@ describe('index.js test', function () {
 
         getIP(function (err, ip) {
             expect(err).to.equal(null);
-            expect(utils.isIP(ip)).to.equal(true);
+            expect(net.isIP(ip) != 0).to.equal(true);
             done();
         });
     });
