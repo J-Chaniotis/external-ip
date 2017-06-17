@@ -48,22 +48,4 @@ describe('requests.js test', function () {
         });
     });
 
-    it('Should validate a correct ip', function () {
-        var req = requests.requestFactory(request.success, 'batman');
-        req = requests.addValidation(req);
-        req(function (err, ip) {
-            expect(err).to.equal(null);
-            expect(ip).to.equal('94.65.128.173');
-        });
-    });
-
-    it('Should return an error with an invalid ip', function () {
-        var req = requests.requestFactory(request.invalid, 'batman');
-        req = requests.addValidation(req);
-        req(function (err, ip) {
-            expect(err).to.be.instanceof(Error);
-            expect(ip).to.equal(null);
-        });
-    });
-
 });
