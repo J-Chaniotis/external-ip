@@ -2,8 +2,8 @@
 
 /*globals describe, it*/
 
-var utils = require('../lib/utils');
-var expect = require('chai').expect;
+const utils = require('../lib/utils');
+const expect = require('chai').expect;
 
 
 describe('utils.js test', function () {
@@ -23,7 +23,7 @@ describe('utils.js test', function () {
 
 
     it('should allow valid config', function () {
-        var config = {
+        const config = {
             a: {
                 replace: false,
                 services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
@@ -50,7 +50,7 @@ describe('utils.js test', function () {
 
     it('sould reject invalid config', function () {
 
-        var config = {
+        const config = {
             a: {
                 replace: 'batman',
                 services: [],
@@ -73,7 +73,7 @@ describe('utils.js test', function () {
 
     it('should merge a valid configuration with default configuration', function () {
 
-        var config = {
+        const config = {
             default: {
                 replace: false,
                 services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
@@ -92,7 +92,7 @@ describe('utils.js test', function () {
             }
         };
 
-        var merged = utils.mergeConfig(config.a, config.default);
+        let merged = utils.mergeConfig(config.a, config.default);
         expect(merged).to.have.property('timeout', 500);
         expect(merged).to.have.property('services').with.lengthOf(2);
         expect(merged).to.have.property('getIP', 'sequential');
