@@ -1,6 +1,6 @@
 {
   "name": "external-ip",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A node.js library to get your external ip from multiple services",
   "main": "index.js",
   "scripts": {
