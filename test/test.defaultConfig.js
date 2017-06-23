@@ -14,7 +14,7 @@ describe('defaultConfig.js test', () => {
         // set the timeout taking every request into account
         this.timeout(timeout * defaultConfig.services.length);
         // configure a request for every service
-        const requests = defaultConfig.services.map((url) => utils.requestFactory({ timeout }, url));
+        const requests = defaultConfig.services.map((url) => utils.requestFactory({ timeout, userAgent: defaultConfig.userAgent }, url));
         let completed = 0;
         // hit them and validate the results
         requests.forEach((request) => {

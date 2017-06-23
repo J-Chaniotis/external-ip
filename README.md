@@ -72,21 +72,35 @@ install as a global package with `npm install -g external-ip`.
 ```
 $ external-ip -h
 
-  Usage: external-ip [options]
+Usage: external-ip [options]
 
   Options:
 
-    -h, --help            output usage information
-    -R, --replace         replace internal services instead of extending them.
-    -s, --services <url>  service url, see examples, required if using -R 
-    -t, --timeout <msec>  set timeout per request
-    -P, --parallel        set to parallel mode
+    -h, --help                    output usage information
+    -V, --version                 output the version number
+    -R, --replace                 replace internal services instead of extending them.
+    -s, --services <url>          service url, see examples, required if using -R
+    -t, --timeout <ms>            set timeout per request
+    -P, --parallel                set to parallel mode
+    -u, --userAgent <User-Agent>  provide a User-Agent header, default: curl/
 
-This program prints the external IP of the machine.
-All arguments are optional.
-Examples:
-$ external-ip
-$ external-ip -P -t 1500 -R -s http://icanhazip.com/ -s http://ifconfig.io/ip
+
+        This program prints the external IP of the machine.
+        All arguments are optional.
+
+        Examples:
+        $ external-ip
+        $ external-ip -P -t 1500 -R -s http://icanhazip.com/ -s http://ident.me/
+
+        Default services:
+        http://icanhazip.com/
+        http://ident.me/
+        http://tnx.nl/ip
+        http://myip.dnsomatic.com/
+        http://ipecho.net/plain
+        http://diagnostic.opendns.com/myip
+
+        Documentation can be found at https://github.com/J-Chaniotis/external-ip
 ```
 ##Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
