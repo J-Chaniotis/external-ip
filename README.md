@@ -56,7 +56,7 @@ getIP((err, ip) => {
 
 ### extIP([config])
 
-`require('external-ip')` returns a constructor function that accepts a optional configuration object.
+`require('external-ip')` returns a constructor function that accepts an optional configuration object.
  It can be used to create multiple instances with different configuration if necessary
 
 * **services:** `Array` of urls that return the ip in the html body, required if replace is set to true
