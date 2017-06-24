@@ -1,27 +1,25 @@
-#external-ip [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) [![Dependency Status](https://david-dm.org/j-Chaniotis/external-ip.svg)](https://david-dm.org/j-Chaniotis/external-ip)
+# external-ip 
+[![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) 
+[![Dependency Status](https://david-dm.org/j-Chaniotis/external-ip.svg)](https://david-dm.org/j-Chaniotis/external-ip)
 
 ![XKCD 865](http://imgs.xkcd.com/comics/nanobots.png)
 
-
-
 `external-ip` is a node.js library to get your external ip from multiple services. 
 
-
-
-##Installation
+## Installation
 
 `npm install external-ip`
 
-##Usage
+## Usage
 
 basic
 
 ```javascript
 'use strict';
 
-var getIP = require('external-ip')();
+const getIP = require('external-ip')();
 
-getIP(function (err, ip) {
+getIP((err, ip) => {
     if (err) {
         // every service in the list has failed
         throw err;
@@ -36,16 +34,17 @@ with configuration
 ```javascript
 'use strict';
 
-var extIP = require('external-ip');
+const extIP = require('external-ip');
 
-var getIP = extIP({
+let getIP = extIP({
     replace: true,
     services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
     timeout: 600,
-    getIP: 'parallel'
+    getIP: 'parallel',
+    userAgent: 'Chrome 15.0.874 / Mac OS X 10.8.1'
 });
 
-getIP(function (err, ip) {
+getIP((err, ip) => {
     if (err) {
         throw err;
     }
@@ -53,21 +52,27 @@ getIP(function (err, ip) {
 });
 
 ```
-##extIP([config])
-external-ip exposes a constructor function that accepts a configuration object with the following optional properties:
+## Configuration
+
+### extIP([config])
+
+`require('external-ip')` returns a constructor function that accepts a optional configuration object.
+ It can be used to create multiple instances with different configuration if necessary
+
 * **services:** `Array` of urls that return the ip in the html body, required if replace is set to true
 * **replace:** `Boolean` if true, replaces the internal array of services with the user defined, if false, extends it, default: `false` 
 * **timeout:** Timeout per request in ms, default `1000`
-* **getIP:** `'sequential'` Sends a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Sends requests to all the sites in the list, on the first valid response all the pending requests are canceled. default: `'sequential'`
+* **getIP:** `'sequential'` Makes a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Makes requests to all the sites in the list, on the first valid response all the pending requests are canceled. default: `'sequential'`
+* **userAgent:** `String` Set a custom `User-Agent` header, default: `curl/`
 
-Returns the configured getIP function.
+Returns the configured getIP instance.
 
-##getIP(callback)
+### getIP(callback)
 The callback gets 2 arguments:
 1. error: if every service in the list fails to return a valid ip
 2. ip: your external ip
 
-##CLI
+## CLI
 install as a global package with `npm install -g external-ip`.
 ```
 $ external-ip -h
@@ -102,10 +107,10 @@ Usage: external-ip [options]
 
         Documentation can be found at https://github.com/J-Chaniotis/external-ip
 ```
-##Test
+## Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
 
-##Links
+## Links
 * [moira](https://www.npmjs.org/package/moira)
 * [externalip](https://www.npmjs.org/package/externalip)
 * [extip](https://www.npmjs.org/package/extip)
