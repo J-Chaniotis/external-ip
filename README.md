@@ -28,7 +28,6 @@ getIP((err, ip) => {
 });
 
 ```
-
 with configuration
 
 ```javascript
@@ -52,6 +51,46 @@ getIP((err, ip) => {
 });
 
 ```
+### Promises
+The API of this library is designed around the classic node.js error-first callback. 
+As of node.js V8, converting this type of callback into a promise is pretty straight forward and
+requires one more line of code.
+
+basic
+```javascript
+'use strict';
+
+const {promisify} = require('util'); //<-- Require promisify
+const getIP = promisify(require('external-ip')()); // <-- And then wrap the library
+
+getIP().then((ip)=> {
+    console.log(ip);
+}).catch((error) => {
+    console.error(error);
+});
+
+```
+with configuration
+
+```javascript
+'use strict';
+const { promisify } = require('util'); //<-- Require promisify
+const getIP = promisify(require('external-ip')({
+    replace: true,
+    services: ['http://icanhazip.com/', 'http://ident.me/'],
+    timeout: 600,
+    getIP: 'parallel',
+    verbose: true
+})); // <-- And then wrap the library
+
+getIP().then((ip) => {
+    console.log(ip);
+}).catch((error) => {
+    console.error(error);
+});
+```
+If you believe this extra step shouldn be there, feel free to open an issue and/or a pull request
+
 ## Configuration
 
 ### extIP([config])
