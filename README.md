@@ -62,8 +62,9 @@ getIP((err, ip) => {
 * **services:** `Array` of urls that return the ip in the html body, required if replace is set to true
 * **replace:** `Boolean` if true, replaces the internal array of services with the user defined, if false, extends it, default: `false` 
 * **timeout:** Timeout per request in ms, default `1000`
-* **getIP:** `'sequential'` Makes a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Makes requests to all the sites in the list, on the first valid response all the pending requests are canceled. default: `'sequential'`
+* **getIP:** `'sequential'` Makes a request to the first url in the list, if that fails sends to the next and so on. `'parallel'` Makes requests to all the sites in the list, on the first valid response all the pending requests are canceled, default: `'sequential'`
 * **userAgent:** `String` Set a custom `User-Agent` header, default: `curl/`
+* **verbose:** `Boolean` Log additional information to the console, default: `false`
 
 Returns the configured getIP instance.
 
@@ -88,6 +89,7 @@ Usage: external-ip [options]
     -t, --timeout <ms>            set timeout per request
     -P, --parallel                set to parallel mode
     -u, --userAgent <User-Agent>  provide a User-Agent header, default: curl/
+    -v, --verbose                 provide additional details
 
 
         This program prints the external IP of the machine.
