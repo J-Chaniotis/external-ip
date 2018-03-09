@@ -134,6 +134,7 @@ describe('utils.js test', function () {
                 // Every service has responded
                 if (completed.length === requests.length) {
                     // Every IP is the same
+                    console.dir(completed);
                     return (!!completed.reduce((a, b) => a === b ? a : NaN)) ? done() : done(new Error('IP mismatch'));
                 }
             });
