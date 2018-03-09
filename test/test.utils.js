@@ -113,47 +113,65 @@ describe('utils.js test', function () {
 
     });
 
-    it('should be able to do an http request and return an IP', function () {
-        throw new Error('NOT IMPLEMENTED');
-    });
+    it('Should return the same IP for every service entry in the default configuration', function (done) {
+        const defaultServices = configSchema.properties.services.default;
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
+        };
+        // set the test timeout taking every request into account
+        this.timeout(config.timeout * defaultServices.length);
+        // configure a request for every service
+        const requests = defaultServices.map((url) => utils.requestFactory(config, url));
 
-    it('should be able to fail as expected when http requests are misconfigured', function () {
-        throw new Error('NOT IMPLEMENTED');
-    });
-
-    it('should be able to format multiple error messages', function () {
-        throw new Error('NOT IMPLEMENTED');
-    });
-
-
-    /*
-    
-    describe('defaultConfig.js test', () => {
-        it('Should return an IP for every service entry in the default configuration', function (done) {
-            // set the timeout taking every request into account
-            this.timeout(timeout * defaultConfig.services.length);
-            // configure a request for every service
-            const requests = defaultConfig.services.map((url) => utils.requestFactory({ timeout, userAgent: defaultConfig.userAgent }, url));
-            let completed = 0;
-            // hit them and validate the results
-            requests.forEach((request) => {
-                request((err, ip) => {
-                    expect(err).to.equal(null);
-                    expect(utils.isIP(ip)).to.equal(true);
-                    completed += 1;
-
-                    if (completed === requests.length) {
-                        done();
-                    }
-                });
+        let completed = [];
+        // hit them and validate the results
+        requests.forEach((request) => {
+            request((error, ip) => {
+                expect(error).to.equal(null);
+                expect(utils.isIP(ip)).to.equal(true);
+                completed.push(ip);
+                // Every service has responded
+                if (completed.length === requests.length) {
+                    // Every IP is the same
+                    return (!!completed.reduce((a, b) => a === b ? a : NaN)) ? done() : done(new Error('IP mismatch'));
+                }
             });
+        });
 
+    });
+
+    it('should be able to fail as expected when an service cant be found', function (done) {
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
+        };
+        utils.requestFactory(config, 'http://i am doomed to fail cause i dont exist')((error, ip) => {
+            expect(ip).to.equal(null);
+            expect(error.message).to.contain('ENOTFOUND');
+            done();
         });
     });
 
+    it('should be able to fail as expected when an service wont return a valid IP', function (done) {
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
+        };
+        utils.requestFactory(config, 'http://www.google.com')((error, ip) => {
+            expect(ip).to.equal(null);
+            expect(error.message).to.contain('invalid IP');
+            done();
+        });
+    });
 
-     */
-
-
+    it('should be able to format multiple error messages', function () {
+        const error = utils.concatErrors([
+            new Error('Software failure.'),
+            new Error('Press left mouse button to continue'),
+            new Error('Guru Meditation '),
+        ]);
+        expect(error.message).to.equal('Multiple errors: \n Software failure. \n Press left mouse button to continue \n Guru Meditation  \n');
+    });
 
 });

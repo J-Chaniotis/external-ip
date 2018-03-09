@@ -1,6 +1,7 @@
 # external-ip 
 [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) 
 [![Dependency Status](https://david-dm.org/j-Chaniotis/external-ip.svg)](https://david-dm.org/j-Chaniotis/external-ip)
+[![npm version](https://badge.fury.io/js/external-ip.svg)](https://badge.fury.io/js/external-ip)
 
 ![XKCD 865](http://imgs.xkcd.com/comics/nanobots.png)
 

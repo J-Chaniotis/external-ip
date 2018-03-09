@@ -13,12 +13,10 @@
                 "format": "uri"
             },
             "default": [
-                "http://icanhazip.com/",
-                "http://ident.me/",
-                "http://tnx.nl/ip",
-                "http://myip.dnsomatic.com/",
-                "http://ipecho.net/plain",
-                "http://diagnostic.opendns.com/myip"
+                "https://icanhazip.com/",
+                "https://ident.me/",
+                "https://tnx.nl/ip",
+                "https://diagnostic.opendns.com/myip"
             ]
         },
         "timeout": {
