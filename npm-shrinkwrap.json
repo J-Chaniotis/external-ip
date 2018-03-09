@@ -5,11 +5,10 @@
   "requires": true,
   "dependencies": {
     "ajv": {
-      "version": "5.5.2",
-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
-      "integrity": "sha1-c7Xuyj+rZT49P5Qis0GtQiBdyWU=",
+      "version": "6.2.1",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.2.1.tgz",
+      "integrity": "sha1-KKarxJOiq+D7TIUHrK7bQ/pVBnE=",
       "requires": {
-        "co": "4.6.0",
         "fast-deep-equal": "1.1.0",
         "fast-json-stable-stringify": "2.0.0",
         "json-schema-traverse": "0.3.1"
@@ -62,11 +61,6 @@
       "resolved": "https://registry.npmjs.org/check-error/-/check-error-1.0.2.tgz",
       "integrity": "sha1-V00xLt2Iu13YkS6Sht1sCu1KrII=",
       "dev": true
-    },
-    "co": {
-      "version": "4.6.0",
-      "resolved": "https://registry.npmjs.org/co/-/co-4.6.0.tgz",
-      "integrity": "sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ="
     },
     "commander": {
       "version": "2.15.0",
