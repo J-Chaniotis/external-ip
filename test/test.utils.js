@@ -153,7 +153,7 @@ describe('utils.js test', function () {
         };
         utils.requestFactory(config, 'http://i am doomed to fail cause i dont exist')((error, ip) => {
             expect(ip).to.equal(null);
-            expect(error.message).to.contain('ENOTFOUND');
+            expect(error.message).to.contain('Request timed out');
             done();
         });
     });
