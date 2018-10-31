@@ -153,9 +153,11 @@ describe('utils.js test', function () {
         };
         utils.requestFactory(config, 'http://i am doomed to fail cause i dont exist')((error, ip) => {
             expect(ip).to.equal(null);
-            if(process.platform === 'win32') // Hack cause windows does not produce ENOTFOUND :/
+            if (process.platform === 'win32') {// Hack cause windows does not produce ENOTFOUND :/
                 expect(error.message).to.contain('Request timed out');
-            expect(error.message).to.contain('ENOTFOUND');
+            } else {
+                expect(error.message).to.contain('ENOTFOUND');
+            }
             done();
         });
     });
