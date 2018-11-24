@@ -26,7 +26,7 @@ describe('index.js test', function () {
 
         const getIP = extIP({
             replace: true, // true: replace the default services list, false: extend it, default: false
-            services: ['http://ident.me/', 'http://icanhazip.com/'],
+            services: ['https://ipinfo.io/ip', 'http://ident.me/', 'http://icanhazip.com/'],
             timeout: timeout, // set timeout per request, default: 500ms,
             getIP: 'parallel'
         });

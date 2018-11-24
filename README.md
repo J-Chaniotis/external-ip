@@ -1,4 +1,5 @@
-# external-ip 
+# external-ip
+
 [![Build Status](https://travis-ci.org/J-Chaniotis/external-ip.svg?branch=master)](https://travis-ci.org/J-Chaniotis/external-ip) 
 [![Dependency Status](https://david-dm.org/j-Chaniotis/external-ip.svg)](https://david-dm.org/j-Chaniotis/external-ip)
 [![npm version](https://badge.fury.io/js/external-ip.svg)](https://badge.fury.io/js/external-ip)
@@ -27,8 +28,8 @@ getIP((err, ip) => {
     }
     console.log(ip);
 });
-
 ```
+
 with configuration
 
 ```javascript
@@ -38,7 +39,7 @@ const extIP = require('external-ip');
 
 let getIP = extIP({
     replace: true,
-    services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
+    services: ['https://ipinfo.io/ip', 'http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
     timeout: 600,
     getIP: 'parallel',
     userAgent: 'Chrome 15.0.874 / Mac OS X 10.8.1'
@@ -50,14 +51,16 @@ getIP((err, ip) => {
     }
     console.log(ip);
 });
-
 ```
+
 ### Promises
-The API of this library is designed around the classic node.js error-first callback. 
+
+The API of this library is designed around the classic node.js error-first callback.
 As of node.js V8, converting this type of callback into a promise is pretty straight forward and
 requires one more line of code.
 
 basic
+
 ```javascript
 'use strict';
 
@@ -69,8 +72,8 @@ getIP().then((ip)=> {
 }).catch((error) => {
     console.error(error);
 });
-
 ```
+
 with configuration
 
 ```javascript
@@ -78,7 +81,7 @@ with configuration
 const { promisify } = require('util'); //<-- Require promisify
 const getIP = promisify(require('external-ip')({
     replace: true,
-    services: ['http://icanhazip.com/', 'http://ident.me/'],
+    services: ['https://ipinfo.io/ip', 'http://icanhazip.com/', 'http://ident.me/'],
     timeout: 600,
     getIP: 'parallel',
     verbose: true
@@ -90,7 +93,8 @@ getIP().then((ip) => {
     console.error(error);
 });
 ```
-If you believe this extra step shouldn be there, feel free to open an issue and/or a pull request
+
+If you believe this extra step shouldn't be there, feel free to open an issue and/or a pull request.
 
 ## Configuration
 
@@ -109,13 +113,17 @@ If you believe this extra step shouldn be there, feel free to open an issue and/
 Returns the configured getIP instance.
 
 ### getIP(callback)
+
 The callback gets 2 arguments:
+
 1. error: if every service in the list fails to return a valid ip
 2. ip: your external ip
 
 ## CLI
+
 install as a global package with `npm install -g external-ip`.
-```
+
+```bash
 $ external-ip -h
 
 Usage: external-ip [options]
@@ -149,10 +157,13 @@ Usage: external-ip [options]
 
         Documentation can be found at https://github.com/J-Chaniotis/external-ip
 ```
+
 ## Test
+
 Change your working directory to the project's root, `npm install` to get the development dependencies and then run `npm test`
 
 ## Links
+
 * [moira](https://www.npmjs.org/package/moira)
 * [externalip](https://www.npmjs.org/package/externalip)
 * [extip](https://www.npmjs.org/package/extip)
