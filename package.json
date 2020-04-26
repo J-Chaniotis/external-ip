@@ -38,12 +38,12 @@
   },
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
-    "ajv": "^6.5.4",
-    "commander": "^2.19.0",
+    "ajv": "^6.12.2",
+    "commander": "^5.1.0",
     "simple-get": "^3.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "mocha": "^7.1.2"
   }
 }
