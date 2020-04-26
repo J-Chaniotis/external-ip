@@ -23,7 +23,7 @@
         "timeout": {
             "description": "timeout per request",
             "type": "integer",
-            "default": 1500
+            "default": 4000
         },
         "getIP": {
             "description": "sequential or parallel ip fetching",
