@@ -3,16 +3,18 @@
 /*globals it, describe*/
 
 // Integration test
-var extIP = require('../index');
-var utils = require('../lib/utils');
-var expect = require('chai').expect;
+const extIP = require('../index');
+const utils = require('../lib/utils');
+const expect = require('chai').expect;
+
+const timeout = 3000;
 
 
 describe('index.js test', function () {
     it('Should return an IP with default configuration', function (done) {
-        this.timeout(3000);
-        var getIP = extIP();
-        getIP(function (err, ip) {
+        this.timeout(timeout);
+        const getIP = extIP();
+        getIP((err, ip) => {
             expect(err).to.equal(null);
             expect(utils.isIP(ip)).to.equal(true);
             done();
@@ -20,19 +22,32 @@ describe('index.js test', function () {
     });
 
     it('Should return an IP with custom configuration', function (done) {
-        this.timeout(3000);
+        this.timeout(timeout);
 
-        var getIP = extIP({
+        const getIP = extIP({
             replace: true, // true: replace the default services list, false: extend it, default: false
-            services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
-            timeout: 600, // set timeout per request, default: 500ms,
+            services: ['https://ipinfo.io/ip', 'http://ident.me/', 'http://icanhazip.com/'],
+            timeout: timeout, // set timeout per request, default: 500ms,
             getIP: 'parallel'
         });
 
-        getIP(function (err, ip) {
+        getIP((err, ip) => {
             expect(err).to.equal(null);
             expect(utils.isIP(ip)).to.equal(true);
             done();
         });
+    });
+
+    it('Should throw an error if configuration is invalid', function (done) {
+        try {
+            extIP({
+                replace: 'Batman',
+                services: ['Robin'],
+                timeout: 'Freeze'
+            });
+        } catch (error) {
+            expect(error).to.be.instanceof(Error);
+            done();
+        }
     });
 });

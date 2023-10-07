@@ -1,10 +1,13 @@
 {
   "name": "external-ip",
-  "version": "0.1.5",
+  "version": "2.3.1",
   "description": "A node.js library to get your external ip from multiple services",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha"
+  },
+  "bin": {
+    "external-ip": "lib/cli.js"
   },
   "repository": {
     "type": "git",
@@ -15,20 +18,32 @@
     "external",
     "ip",
     "network",
+    "public",
     "address"
   ],
   "author": "J.Chaniotis",
+  "contributors": [
+    {
+      "name": "Nikolas Andronopoulos",
+      "email": "nikolas.andronopoulos@gmail.com"
+    },
+    {
+      "name": "Uman Shahzad",
+      "email": "uman@mslm.me"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/J-Chaniotis/external-ip/issues"
   },
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
-    "request": "^2.40.0",
-    "revalidator": "^0.2.0"
+    "ajv": "^6.12.6",
+    "commander": "^5.1.0",
+    "simple-get": "^3.1.1"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
-    "mocha": "^1.21.4"
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2"
   }
 }

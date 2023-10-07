@@ -1,8 +1,8 @@
 'use strict';
 
-var getIP = require('../index')();
+const getIP = require('../index')();
 
-getIP(function (err, ip) {
+getIP((err, ip) => {
     if (err) {
         throw err;
     }

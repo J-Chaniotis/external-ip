@@ -2,20 +2,19 @@
 
 /*globals describe, it*/
 
-var utils = require('../lib/utils');
-var expect = require('chai').expect;
+const utils = require('../lib/utils');
+const expect = require('chai').expect;
+const configSchema = require('../lib/configSchema.json');
 
 
 describe('utils.js test', function () {
 
-    it('should be able to validate IPv4, IPv6 and hostnames', function () {
+    it('should be able to validate IPv4 and IPv6', function () {
 
         expect(utils.isIP('192.168.1.1')).to.equal(true);
         expect(utils.isIP('94.65.128.173')).to.equal(true);
         expect(utils.isIP('FE80:0000:0000:0000:0202:B3FF:FE1E:8329')).to.equal(true);
         expect(utils.isIP('FE80::0202:B3FF:FE1E:8329')).to.equal(true);
-        expect(utils.isIP('batman.local')).to.equal(true);
-
 
         expect(utils.isIP(111111)).to.equal(false);
         expect(utils.isIP('192..1.1')).to.equal(false);
@@ -24,54 +23,16 @@ describe('utils.js test', function () {
     });
 
 
-    it('should loop i times and pass the arguments to done callback', function (cb) {
-        var i = 10;
-        utils.asyncLoop({
-            iterations: i,
-            exec: function (i, stop, next) {
-                next(i, 'someArg');
-            },
-            done: function (result, anotherArg) {
-                expect(result).to.equal(i - 1);
-                expect(anotherArg).to.equal('someArg');
-                cb();
-            }
-        });
-
-    });
-
-
-    it('should loop i times and stop at n and pass the arguments to done callback', function (cb) {
-        var i = 10;
-        var n = 4;
-        utils.asyncLoop({
-            iterations: i,
-            exec: function (i, stop, next) {
-                if (i === n) {
-                    stop(i, 'stopValue');
-                }
-                next(i, 'someArg');
-            },
-            done: function (result, anotherArg) {
-                expect(result).to.equal(n);
-                expect(anotherArg).to.equal('stopValue');
-                cb();
-            }
-        });
-
-    });
-
-
     it('should allow valid config', function () {
-        var config = {
+        const config = {
             a: {
                 replace: false,
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 500,
-                gerIP: 'sequential'
+                getIP: 'sequential'
             },
             b: {
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip'],
                 timeout: 500,
                 getIP: 'parallel'
             },
@@ -79,18 +40,59 @@ describe('utils.js test', function () {
                 timeout: 500
             },
             // An empty object is valid config
-            d: {}
+            d: {},
+
+            e: {
+                replace: true,
+                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.io/ip']
+            },
+            f: {
+                replace: true,
+                services: ['http://ifconfig.co/x-real-ip']
+            },
+            g: {
+                services: ['http://ifconfig.co/x-real-ip']
+            },
         };
 
-        expect(utils.validateConfig(config.a).valid).to.equal(true);
-        expect(utils.validateConfig(config.b).valid).to.equal(true);
-        expect(utils.validateConfig(config.c).valid).to.equal(true);
-        expect(utils.validateConfig(config.d).valid).to.equal(true);
+        const defaultLength = configSchema.properties.services.default.length;
+
+        expect(utils.prepareConfig(config.a)).to.equal(null);
+        expect(config.a.services.length).to.equal(defaultLength + 2);
+
+        expect(utils.prepareConfig(config.b)).to.equal(null);
+        expect(config.b.services.length).to.equal(defaultLength + 2);
+        expect(config.b.timeout).to.equal(500);
+
+        expect(utils.prepareConfig(config.c)).to.equal(null);
+        expect(config.c.services.length).to.equal(defaultLength);
+        expect(config.c.timeout).to.equal(500);
+
+        // Check all the default values
+        expect(utils.prepareConfig(config.d)).to.equal(null);
+        expect(config.d.services.length).to.equal(defaultLength);
+        expect(config.d.replace).to.equal(configSchema.properties.replace.default);
+        expect(config.d.timeout).to.equal(configSchema.properties.timeout.default);
+        expect(config.d.getIP).to.equal(configSchema.properties.getIP.default);
+        expect(config.d.userAgent).to.equal(configSchema.properties.userAgent.default);
+        expect(config.d.verbose).to.equal(configSchema.properties.verbose.default);
+
+        expect(utils.prepareConfig(config.e)).to.equal(null);
+        expect(config.e.services.length).to.equal(2);
+
+        expect(utils.prepareConfig(config.f)).to.equal(null);
+        expect(config.f.services.length).to.equal(1);
+
+
+        expect(utils.prepareConfig(config.g)).to.equal(null);
+        expect(config.g.services.length).to.equal(defaultLength + 1);
+
     });
+
 
     it('sould reject invalid config', function () {
 
-        var config = {
+        const config = {
             a: {
                 replace: 'batman',
                 services: [],
@@ -105,48 +107,80 @@ describe('utils.js test', function () {
             }
         };
 
-        expect(utils.validateConfig(config.a).errors.length).equal(4);
-        expect(utils.validateConfig(config.b).errors.length).equal(1);
-        expect(utils.validateConfig(config.c).errors.length).equal(1);
+        expect(utils.prepareConfig(config.a).length).equal(4);
+        expect(utils.prepareConfig(config.b).length).equal(1);
+        expect(utils.prepareConfig(config.c).length).equal(1);
 
     });
 
-    it('should merge a valid configuration with default configuration', function () {
-
-        var config = {
-            default: {
-                replace: false,
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
-                timeout: 500,
-                getIP: 'sequential'
-            },
-            a: {},
-            b: {
-                services: ['http://ifconfig.co/x-real-ip', 'http://ifconfig.me/ip'],
-                timeout: 1000,
-                getIP: 'parallel'
-            },
-            c: {
-                replace: true,
-                services: ['http://ifconfig.co/x-real-ip']
-            }
+    it('Should return an IP for every service entry in the default configuration', function (done) {
+        const defaultServices = configSchema.properties.services.default;
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
         };
+        // set the test timeout taking every request into account
+        this.timeout(config.timeout * defaultServices.length);
+        // configure a request for every service
+        const requests = defaultServices.map((url) => utils.requestFactory(config, url));
 
-        var merged = utils.mergeConfig(config.a, config.default);
-        expect(merged).to.have.property('timeout', 500);
-        expect(merged).to.have.property('services').with.lengthOf(2);
-        expect(merged).to.have.property('getIP', 'sequential');
+        let completed = [];
+        // hit them and validate the results
+        requests.forEach((request) => {
+            request((error, ip) => {
+                expect(error).to.equal(null);
+                expect(utils.isIP(ip)).to.equal(true);
+                completed.push(ip);
+                // Every service has responded
+                if (completed.length === requests.length) {
 
-        merged = utils.mergeConfig(config.b, config.default);
-        expect(merged).to.have.property('timeout', 1000);
-        expect(merged).to.have.property('services').with.lengthOf(4);
-        expect(merged).to.have.property('getIP', 'parallel');
+                    // When runing on travis IPs will not be the same because of the infrastructure
+                    if(process.env.TRAVIS) {
+                        return done();
+                    }
+                    // Check if every IP is the same
+                    return (!!completed.reduce((a, b) => a === b ? a : NaN)) ? done() : done(new Error('IP mismatch'));
+                }
+            });
+        });
 
-        merged = utils.mergeConfig(config.c, config.default );
-        expect(merged).to.have.property('timeout', 500);
-        expect(merged).to.have.property('services').with.lengthOf(1);
+    });
 
+    it('should be able to fail as expected when an service cant be found', function (done) {
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
+        };
+        utils.requestFactory(config, 'http://i am doomed to fail cause i dont exist')((error, ip) => {
+            expect(ip).to.equal(null);
+            if (process.platform === 'win32') {// Hack cause windows does not produce ENOTFOUND :/
+                expect(error.message).to.contain('Request timed out');
+            } else {
+                expect(error.message).to.contain('ENOTFOUND');
+            }
+            done();
+        });
+    });
 
+    it('should be able to fail as expected when an service wont return a valid IP', function (done) {
+        const config = {
+            timeout: 1000,
+            userAgent: 'curl/'
+        };
+        utils.requestFactory(config, 'http://www.google.com')((error, ip) => {
+            expect(ip).to.equal(null);
+            expect(error.message).to.contain('invalid IP');
+            done();
+        });
+    });
+
+    it('should be able to format multiple error messages', function () {
+        const error = utils.concatErrors([
+            new Error('Software failure.'),
+            new Error('Press left mouse button to continue'),
+            new Error('Guru Meditation '),
+        ]);
+        expect(error.message).to.equal('Multiple errors: \n Software failure. \n Press left mouse button to continue \n Guru Meditation  \n');
     });
 
 });

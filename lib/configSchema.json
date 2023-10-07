@@ -1,0 +1,44 @@
+{
+    "properties": {
+        "replace": {
+            "description": "true: replaces the default services, false: extends them",
+            "type": "boolean",
+            "default": false
+        },
+        "services": {
+            "description": "array of urls that return the ip in the document body",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "format": "uri"
+            },
+            "default": [
+                "https://ipinfo.io/ip",
+                "https://icanhazip.com/",
+                "https://ident.me/",
+                "https://diagnostic.opendns.com/myip"
+            ]
+        },
+        "timeout": {
+            "description": "timeout per request",
+            "type": "integer",
+            "default": 4000
+        },
+        "getIP": {
+            "description": "sequential or parallel ip fetching",
+            "type": "string",
+            "enum": ["parallel", "sequential"],
+            "default": "sequential"
+        },
+        "userAgent": {
+            "description": "Customize the User-Agent header",
+            "type": "string",
+            "default": "curl/"
+        },
+        "verbose": {
+            "description": "provide additional details",
+            "type": "boolean",
+            "default": false
+        }
+    }
+}
