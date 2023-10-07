@@ -38,9 +38,9 @@
   },
   "homepage": "https://github.com/J-Chaniotis/external-ip",
   "dependencies": {
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.6",
     "commander": "^5.1.0",
-    "simple-get": "^3.0.3"
+    "simple-get": "^3.1.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
